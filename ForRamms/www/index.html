@@ -1,0 +1,175 @@
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		
+		<title>sap.m.Carousel Test</title>
+		<script src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
+			type="text/javascript"
+			id="sap-ui-bootstrap"
+			data-sap-ui-libs="sap.m"
+			data-sap-ui-theme="sap_bluecrystal"
+			data-sap-ui-compatVersion="1.20">>
+		</script>
+		
+	
+		
+		<script type="text/javascript">
+		
+		// Create Images
+		var imgDesert = new sap.m.Image("desert", {
+			src: "images/IMG_1599.JPG",
+			alt: "Rumms",
+			densityAware: false,
+			decorative: false
+		});
+		
+		imgDesert.attachPress(function (e) {
+			var event = e;
+		});
+		
+		var imgElephant = new sap.m.Image("elephant", {
+			src: "images/IMG_1600.JPG",
+			alt: "Rumms",
+			densityAware: false,
+			decorative: false
+		});
+		
+/* 		var imgFishImg = new Lightbox("fish", {
+			src: "images/IMG_1057.JPG",
+			alt: "Ballz",
+		}); */
+		
+		
+		var imgForest =  new sap.m.Image("forest", {
+			src: "images/IMG_1125.JPG",
+			alt: "Yashu",
+			densityAware: false,
+			decorative: false
+		});
+		
+		var imgMeghaa =  new sap.m.Image("meghaa", {
+			src: "images/IMG_1190.JPG",
+			alt: "Meghaa",
+			densityAware: false,
+			decorative: false
+		});		
+		
+/* 		var scrollForest = new sap.m.ScrollContainer({
+			horizontal: false,
+			vertical: true,
+			content:[imgDesert],
+			//width:'100%',
+			//height:'100%',
+		});  */
+		
+		
+/*  	var imgHuntingLeopard = new sap.m.Image("huntingLeopard", {
+			src: "images/IMG_1057.JPG",
+			alt: "Ballz",
+			densityAware: false,
+			decorative: false
+		});
+		 */
+
+	/* 	var imgPrairie = new sap.m.Image("prairie", {
+			src: "images/demo/nature/prairie.jpg",
+			alt: "Prairie in Dawn",
+			densityAware: false,
+			decorative: false
+		});
+	*/
+		
+		var imgWaterfall = new sap.m.Image("waterfall", {
+			src: "images/IMG_1057.JPG",
+			alt: "Bala",
+			densityAware: false,
+			decorative: false
+		}); 
+		
+		
+		//Please uncomment any of the following lines to test the corresponding
+		//carousel attribute
+		var carousel = new sap.m.Carousel("myCarousel", {
+			//pageIndicatorPlacement: sap.m.PlacementType.Top,
+			//pageIndicatorPlacement: sap.m.PlacementType.Bottom,
+			//activePage: imgElephant,
+			//width: "50%",
+			//height: "50%",
+			//showPageIndicator: false,
+			loop: true,
+			//showBusyIndicator: false,
+			pages: [imgDesert,imgForest, imgElephant, imgMeghaa,  imgWaterfall]
+			//pages: [imgDesert, imgElephant, imgFishImg]
+		});
+		
+		
+		//Listen to 'pageChanged' events
+		carousel.attachPageChanged(function(oControlEvent) {
+			jQuery.sap.log.info("sap.m.Carousel: page changed: old: " + oControlEvent.getParameters().oldActivePageId );
+			jQuery.sap.log.info("                              new: " + oControlEvent.getParameters().newActivePageId );
+		});
+		
+		
+		
+		carousel.attachLoadPage(function(oControlEvent) {
+			var sPageId = oControlEvent.getParameters().pageId;
+			jQuery.sap.log.info("sap.m.Carousel: loading page " + sPageId  );
+			//Example for usage of 'loadPage' event: Add content to 'demoPage' when it is loaded into the carousel
+			/* if(sPageId == demoPage.getId()) {
+				//To demonstrate a loading delay, the following
+				//timeout waits for two seconds, until it hides the 
+				//carousel's busy indicator and shows the demo page
+				setTimeout(function() {
+					demoPage.addContent(new sap.m.VBox("vbox", {
+						items : getAllControls()
+					}));
+				}, 2000);
+			} else {
+				//All other pages are already loaded, the carousel needs to be informed
+				//about this, though
+				carousel.loadComplete(sPageId);
+			}  */
+		});
+		
+		//Example for usage of 'unloadPage' event: 
+		carousel.attachUnloadPage(function(oControlEvent) {
+			jQuery.sap.log.info("sap.m.Carousel: unloaded page: " + oControlEvent.getParameters().pageId );
+			
+			//You may also use this function to clean up the demo page
+			//instead of using the 'onAfterHide' delegate
+			
+		});
+		
+		
+		
+		
+		
+		var appCarousel = new sap.m.App("myApp", {initialPage:"carouselPage"});
+		
+		
+		
+		
+		
+		var carouselPage = new sap.m.Page("carouselPage", 
+			{title: "Specially Made for Rumms", 
+			enableScrolling: false }
+		);
+		
+		
+		carouselPage.addContent(carousel);
+		appCarousel.addPage(carouselPage);
+		appCarousel.placeAt("body");
+		
+		
+		
+		
+		
+		
+		</script>
+		
+	</head>
+	<body id="body" class="sapUiBody">
+	</body>
+</html>
